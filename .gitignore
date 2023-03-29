@@ -1,0 +1,5 @@
+# 실행파일제외
+*.out
+
+# DS_Store 제외
+.DS_Store
