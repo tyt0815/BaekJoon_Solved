@@ -3,3 +3,6 @@
 
 # DS_Store 제외
 .DS_Store
+
+test.cpp
+.vscode
