@@ -1,5 +1,5 @@
 // 문제: https://www.acmicpc.net/problem/1107
-// 풀이:
+// 풀이: https://www.notion.so/tyt0815/1107-64a569a6c870420a902ca954c2d96c43?pvs=4
 
 #include <iostream>
 #include <cmath>
