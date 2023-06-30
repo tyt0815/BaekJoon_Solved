@@ -1,9 +1,7 @@
 // 문제: https://www.acmicpc.net/problem/1389
-// 풀이:
+// 풀이: https://www.notion.so/tyt0815/1389-0509a2afabe641009c3933408f609669?pvs=4
 
 #include <iostream>
-#include <vector>
-#include <stack>
 
 #define INF 99999
 
@@ -16,7 +14,6 @@ int main()
     cin >> n >> m;
 
     int *kevinNum = new int[n+1];
-    vector<int> *graph = new vector<int>[n+1];
     int **mat = new int*[n+1];
     
 
@@ -41,8 +38,6 @@ int main()
     {
         int a, b;
         cin >> a >> b;
-        graph[a].push_back(b);
-        graph[b].push_back(a);
         mat[a][b] = mat[b][a] = 1;
     }
 
