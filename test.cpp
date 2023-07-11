@@ -1,7 +1,13 @@
 #include <iostream>
 
+using namespace std;
 
-void main()
+int main()
 {
-    std::cout << "sibal" << std::endl;
+    double a,b;
+    cin >> a >> b;
+    cout<<fixed;
+    cout.precision(20);
+    cout << a/b;
+    return 0;
 }
