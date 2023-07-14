@@ -14,45 +14,116 @@
 */
 
 #include <iostream>
+#include <string.h>
+#include <vector>
 
 using namespace std;
 
-string* stringSort(string* input, int start, int end);
-string*
+vector<string> stringSort(string* input, int start, int end);
+int CompareString(string s1, string s2);
 
 
 int main()
 {
     int n;
-    string *input, *sorted;
+    string *input;
+
+    vector<string> sorted;
 
     cin >> n;
     input = new string[n];
 
-    int len = input->length();
-    sorted = stringSort(input, 0, len);
-
-    for(int i = 0; i < len; ++i)
+    for(int i = 0; i < n; ++i)
     {
-        cout << sorted[i] << endl;
+        cin >> input[i];
+    }
+
+    sorted = stringSort(input, 0, n);
+
+    vector<string>::iterator iter = sorted.begin();
+    for(;iter != sorted.end(); ++iter)
+    {
+        cout << *iter << "\n";
     }
 
     return 0;
 }
 
-string* stringSort(string* input, int start, int end)
+vector<string> stringSort(string* input, int start, int end)   // 마지막 인덱스 == end-1
 {
-    if (start >= end) { return ; }
+    if (start >= end - 1) 
+    { 
+        vector<string> v;
+        v.push_back(input[start]);
+        return v;
+    }
     
     int mid = (start + end) / 2;
 
-    stringSort(input, start, mid);
-    stringSort(input, mid, end);
+    vector<string> v1 = stringSort(input, start, mid);
+    vector<string> v2 = stringSort(input, mid, end);
 
-    string *sorted = new string[end-start];
-    int i = start, j = mid;
-    while(true)
+    vector<string> sorted;
+    
+    vector<string>::iterator iter1 = v1.begin(), iter2 = v2.begin();
+    while(iter1 != v1.end() && iter2 != v2.end())
     {
-        if()
+        int result = CompareString(*iter1, *iter2);
+        if(result < 0)    // iter1이 앞
+        {
+            sorted.push_back(*iter1);
+            ++iter1;
+        }
+        else if(result > 0)    // iter2가 앞
+        {
+            sorted.push_back(*iter2);
+            ++iter2;
+        }
+        else    // 둘이 같음
+        {
+            sorted.push_back(*iter1);
+            ++iter1;
+            ++iter2;
+        }
+    }
+
+    while(iter1 != v1.end())
+    {
+        sorted.push_back(*iter1);
+        ++iter1;
+    }
+    while(iter2 != v2.end())
+    {
+        sorted.push_back(*iter2);
+        ++iter2;
+    }
+    return sorted;
+}
+
+int CompareString(string s1, string s2)
+{
+    if(s1.length() < s2.length())
+    {
+        return -1;
+    }
+    else if(s1.length() > s2.length())
+    {
+        return 1;
+    }
+    else
+    {
+        int result = s1.compare(s2);
+        if(result < 0)
+        {
+            return -1;
+        }
+        else if(result > 0)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }
