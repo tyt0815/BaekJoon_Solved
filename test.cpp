@@ -1,13 +1,13 @@
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
 int main()
 {
-    double a,b;
-    cin >> a >> b;
-    cout<<fixed;
-    cout.precision(20);
-    cout << a/b;
-    return 0;
+    for(int i = 0; i <= 100; ++i)
+    {
+        cout<<i<<": "<<uint64_t(pow(31,i))<<endl;
+        if(pow(31,i-1)>pow(31,i)) break;
+    }
 }
