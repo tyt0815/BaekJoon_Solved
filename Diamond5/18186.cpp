@@ -28,30 +28,52 @@ i번 공장과 (i+1)번 공장, (i+2)번 공장에서 각각 라면을 하나씩
 
 using namespace std;
 
-int FindMax(int*);
-void f(int*, int, int, int);
+void printAry(int* ary, int end)
+{
+    for(int i = 0; i < end; ++i) cout << ary[i] << " ";
+    cout << endl;
+}
 
 int main()
 {
-    int n, *a;
+    int n, *amount, value = 0;
+    int cost[4] = {3, 5, 7};
     cin >> n;
-    a = new int[n];
 
-    for(int i = 0; i > FindMax(a); ++i)
+    amount = new int[n];
+
+    for(int i = 0; i < n; ++i)
     {
-        for(int j = 0; j < n-2; ++j)
-        {
-            f(a, j, 3, 7);
-        }
-        for(int j = 0; j < n-1; ++j)
-        {
-            f(a, j, 3, 7);
-        }
-        for(int j = 0; j < n-2; ++j)
-        {
-            f(a, j, 3, 7);
-        }
+        cin >> amount[i];
     }
+
+    for(int i = 0; i < n; ++i)
+    {
+        int preamount;
+        preamount = amount[i];
+        value += preamount * cost[0];
+        amount[i] -= preamount;
+        for(int k = 1; k < 3; ++k)
+        {   
+            if(preamount == 0 || i+k >= n)
+            {
+                break;
+            }
+
+            int cancleamount = min(preamount, amount[i+k]);
+            for(int j = 0; j < k; ++j)
+            {
+                amount[i+k] += preamount - cancleamount;
+            }
+            value -= cancleamount * cost[k-1];
+            amount[i+k] -= cancleamount;
+            value += cancleamount * cost[k];
+            preamount = cancleamount;
+        }
+        printAry(amount, n);
+    }
+
+    cout << value;
 
     return 0;
 }
