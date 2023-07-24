@@ -2,55 +2,60 @@
 
 using namespace std;
 
-void sortF(int*, int*, int, int);
+void quick_sort(int*, int, int);
+void swap_element_in_array(int*, int, int);
 
 int main()
 {
     int n;
-    int *input, *sorted;
+    int *input;
     cin >> n;
     input = new int[n];
-    sorted = new int[n];
     for(int i = 0; i < n; ++i)
     {
         cin >> input[i];
-        sorted[i] = input[i];
     }
 
-    sortF(input, sorted, 0, n);
+    quick_sort(input, 0, n);
 
     for(int i = 0; i < n; ++i)
     {
-        cout << sorted[i] << '\n';
+        cout << input[i] << '\n';
     }
 
     return 0;
 }
 
-void sortF(int* input, int* sorted, int start, int end)
+void quick_sort(int* input, int start, int end)
 {
-    if(start + 1 >= end)
+    int pivot = (start + end) / 2;
+    if(pivot == start || pivot == end)
     {
         return;
     }
-    int mid = (start + end) / 2;
-    sortF(input, sorted, start, mid);
-    sortF(input, sorted, mid, end);
-    int i = start, j = mid, k = start;
-    while(i < mid && j < end)
+    for(int i = start; i < pivot; ++i)
     {
-        if(input[i] < input[j])
+        if(input[i] > input[pivot])
         {
-            sorted[k] = input[i];
-            ++i; ++k;
-        }
-        else if(input[i] > input[j])
-        {
-            sorted[k] = input[j];
-            ++j; ++k;
+            swap_element_in_array(input, i, pivot+1);
+            --pivot;
+            --i;
         }
     }
-    for(; i < mid; ++i,++k){ sorted[k] = input[i]; }
-    for(; j < end; ++j,++k){ sorted[k] = input[j]; }
-    for(i = 0; i < end; ++i){ input[i] = sorted[i]; }
+    for(int i = pivot +1; i < end; ++i)
+    {
+        if(input[i] < input[pivot])
+        {
+            swap_element_in_array(input, i, pivot-1);
+            ++pivot;
+            --i;
+        }
+    }
+    quick_sort(input, start, pivot);
+    quick_sort(input, pivot+1, end);
+}
+
+void swap_element_in_array(int* input, int i, int to)
+{
+    int temp
 }
