@@ -60,15 +60,15 @@ int main()
                 break;
             }
 
-            int cancleamount = min(preamount, amount[i+k]);
+            int nextamount = min(preamount, amount[i+k]);
             for(int j = 0; j < k; ++j)
             {
-                amount[i+k] += preamount - cancleamount;
+                amount[i+k] += preamount - nextamount;
             }
-            value -= cancleamount * cost[k-1];
-            amount[i+k] -= cancleamount;
-            value += cancleamount * cost[k];
-            preamount = cancleamount;
+            value -= nextamount * cost[k-1];
+            amount[i+k] -= nextamount;
+            value += nextamount * cost[k];
+            preamount = nextamount;
         }
         printAry(amount, n);
     }

@@ -6,15 +6,15 @@
 
 using namespace std;
 
-uint32_t f(uint16_t x, uint16_t y, uint16_t n)
+uint64_t f(uint16_t x, uint16_t y, uint16_t n)
 {
     if(x == 0 && y == 0){ return 0; }
     else if(x == 0 && y == 1) { return 1; }
     else if(x == 1 && y == 0) { return 2; }
     else if(x == 1 && y == 1) { return 3; }
 
-    uint32_t over = pow(2, n);
-    uint32_t under = over/2;
+    uint64_t over = pow(2, n);
+    uint64_t under = over/2;
     
     if(x < under && y < under) {return f(x,y, n-1); }
     else if(x < under && y >= under && y < over){ return f(x, y - under, n-1) + pow(4, n-1); }
