@@ -11,6 +11,13 @@ int main()
     int* Eval;
 
     cin >> N;
+
+    if (N == 0)
+    {
+        cout << 0;
+        return 0;
+    }
+
     Eval = new int[N];
 
     for(int i = 0; i < N; ++i)

@@ -1,80 +1,112 @@
 #include <iostream>
-#include <map>
 #include <algorithm>
 
 using namespace std;
 
-typedef pair<long long, int> Card;  // <숫자, 갯수>
-
-void sortCard(Card *input, Card *sorted, int start, int end, bool* table, int& n);
+int CountFunc(long long* cards, long long target, const int& length);
+int UpperBinary(long long* cards, long long target, int start, int end, const int& length);
+int LowerBinary(long long* cards, long long target, int start, int end);
 
 int main()
 {
     int n, m;
-    bool *table;
-    Card *cards;
+    long long *cards, *targets;
 
     cin >> n;
-    cards = new Card[n];
-    table = new bool[n];
+    cards = new long long[n];
     for(int i = 0; i < n; ++i)
     {
-        cin >> cards[i].first;
-        cards[i].second = 1;
-        table[i] = true;
+        cin >> cards[i];
+    }
+
+    sort(cards, cards + n);
+
+    cin >> m;
+    targets = new long long[m];
+    for(int i = 0; i < m; ++i)
+    {
+        cin >> targets[i];
+    }
+        
+    for(int i = 0; i < m; ++i)
+    {
+        cout << CountFunc(cards, targets[i], n) << " ";
     }
 
     return 0;
 }
 
-void sortCard(Card *input, Card *sorted, int start, int end, bool* table, int& n)
+
+int CountFunc(long long* cards, long long target, const int& length)
 {
-    if(start + 1 == end)
+    int start = 0, end = length;
+    int mid;
+    /*
+    이분  탐색
+    */
+    while(true)
     {
-        sorted[start] = input[start];
-        return;
-    }
-    int mid = (start + end) / 2;
-    sortCard(input, sorted, start, mid, table, n);
-    sortCard(input, sorted, mid, end, table, n);
-    int i = start, j = mid, k = start;
-    while(i < mid && j < end)
-    {
-        if(!table[i])
+        mid = (start + end) / 2;
+        if(start >= end)
         {
-            ++i;
-            continue;
+            return 0;
         }
-        if(!table[j])
+        if(cards[mid] == target)
         {
-            ++j;
-            continue;
+            break;
         }
-        if(sorted[i].first < sorted[j].first)
+        else if(cards[mid] < target)
         {
-            input[k++] = sorted[i++];
-        }
-        else if(sorted[i].first > sorted[j].first)
-        {
-            input[k++] = sorted[j++];
+            start = mid + 1;
         }
         else
         {
-            sorted[i].second += sorted[j].second;
-            table[j++] = false;
-            input[k++] = sorted[i++];
-            --n;
+            end = mid;
         }
     }
-    for(;i < mid; ++i)
+
+    return UpperBinary(cards, target, start, end, length) - LowerBinary(cards, target, start, end) + 1;
+}
+
+int UpperBinary(long long* cards, long long target, int start, int end, const int& length)
+{
+    int mid;
+
+    while(true)
     {
-        if(!table[i]){ continue; }
-        input[k++] = sorted[i];
+        mid = (start + end) / 2;
+        if(cards[mid] == target && (mid == length - 1 || cards[mid + 1] != target))
+        {
+            return mid;
+        }
+        else if(cards[mid] > target)
+        {
+            end = mid;
+        }
+        else
+        {
+            start = mid + 1;
+        }
     }
-    for(;j < end; ++j)
+}
+int LowerBinary(long long* cards, long long target, int start, int end)
+{
+    int mid;
+
+    while(true)
     {
-        if(!table[j]){ continue; }
-        input[k++] = sorted[j];
+        mid = (start + end) / 2;
+        if(cards[mid] == target && (mid == 0 || cards[mid - 1] != target))
+        {
+            return mid;
+        }
+        else if(cards[mid] < target)
+        {
+            start = mid + 1;
+        }
+        else
+        {
+            end = mid;
+        }
     }
-    for()
 }
