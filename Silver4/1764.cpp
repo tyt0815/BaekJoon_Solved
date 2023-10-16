@@ -36,6 +36,7 @@ int main()
 
     sort(Result.begin(), Result.end());
 
+    cout << Result.size() << '\n';
     for(int i = 0; i < Result.size(); ++i)
     {
         cout << Result[i] << '\n';
