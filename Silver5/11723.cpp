@@ -6,19 +6,19 @@ using namespace std;
 class MySet
 {
 public:
-    void Add(uint16_t Value)
+    void Add(uint32_t Value)
     {
         mSet.insert(Value);
     }
-    void Remove(uint16_t Value)
+    void Remove(uint32_t Value)
     {
         mSet.erase(Value);
     }
-    bool Check(uint16_t Value)
+    bool Check(uint32_t Value)
     {
         return mSet.find(Value) != mSet.end() ? true : false;
     }
-    void Toggle(uint16_t Value)
+    void Toggle(uint32_t Value)
     {
         if(Check(Value))
         {
@@ -42,7 +42,7 @@ public:
     }
 
 private:
-    set<uint16_t> mSet;
+    set<uint32_t> mSet;
 };
 
 int main()
@@ -58,7 +58,7 @@ int main()
     for(uint64_t i = 0; i < m; ++i)
     {
         string Cmd;
-        uint16_t Value;
+        uint32_t Value;
         cin >> Cmd;
         if(!Cmd.compare("add"))
         {

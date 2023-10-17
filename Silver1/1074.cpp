@@ -6,7 +6,7 @@
 
 using namespace std;
 
-uint64_t f(uint16_t x, uint16_t y, uint16_t n)
+uint64_t f(uint32_t x, uint32_t y, uint32_t n)
 {
     if(x == 0 && y == 0){ return 0; }
     else if(x == 0 && y == 1) { return 1; }
@@ -25,7 +25,7 @@ uint64_t f(uint16_t x, uint16_t y, uint16_t n)
 
 int main()
 {
-    uint16_t n, x, y;
+    uint32_t n, x, y;
     cin >> n >> x >> y;
 
     cout << f(x, y, n);
