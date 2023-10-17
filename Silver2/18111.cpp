@@ -4,8 +4,8 @@ using namespace std;
 
 struct BlockInfo
 {
-    uint32_t Height;
-    uint32_t Num;
+    uint64_t Height;
+    uint64_t Num;
 };
 
 void CountBlockNum(uint64_t** HomeGround, uint64_t n, uint64_t m, BlockInfo& Block);

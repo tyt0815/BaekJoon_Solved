@@ -10,9 +10,9 @@ int main()
     ios::sync_with_stdio(false);
 	cin.tie(NULL);
 
-    uint32_t n, m;
+    uint64_t n, m;
     vector<string> PokeNumb2String;
-    map<string, uint32_t> PokeString2Numb;
+    map<string, uint64_t> PokeString2Numb;
     string Question;
     cin >> n >> m;
 

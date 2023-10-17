@@ -6,20 +6,20 @@ using namespace  std;
 
 int main()
 {
-    uint32_t n;
-    uint32_t* Sequence;
-    stack<uint32_t> s;
+    uint64_t n;
+    uint64_t* Sequence;
+    stack<uint64_t> s;
     vector<char> Result;
     
     cin >> n;
-    Sequence = new uint32_t[n];
+    Sequence = new uint64_t[n];
     for(int i = 0; i < n; ++i)
     {
         cin >> Sequence[i];
     }
 
-    uint32_t PushNum = 1;
-    uint32_t SeqIndex = 0;
+    uint64_t PushNum = 1;
+    uint64_t SeqIndex = 0;
     while (true)
     {
         if(SeqIndex >= n) { break; }

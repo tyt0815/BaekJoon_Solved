@@ -10,8 +10,8 @@ int main()
     
     uint16_t n;
     uint16_t* p;
-    uint32_t Answer = 0;
-    uint32_t Temp = 0;
+    uint64_t Answer = 0;
+    uint64_t Temp = 0;
 
     cin >> n;
     p = new uint16_t[n];

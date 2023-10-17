@@ -9,16 +9,16 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    uint32_t TestCase, n;
+    uint64_t TestCase, n;
 
     cin >>TestCase;
 
-    for(uint32_t i = 0; i < TestCase; ++i)
+    for(uint64_t i = 0; i < TestCase; ++i)
     {
         cin >> n;
-        map<string, uint32_t> m;
-        uint32_t Answer = 1;
-        for(uint32_t j = 0; j < n; ++j)
+        map<string, uint64_t> m;
+        uint64_t Answer = 1;
+        for(uint64_t j = 0; j < n; ++j)
         {
             string ClothName, ClothType;
             cin >> ClothName >> ClothType;
@@ -28,7 +28,7 @@ int main()
             }
             m[ClothType] += 1;
         }
-        map<string, uint32_t>::iterator It = m.begin();
+        map<string, uint64_t>::iterator It = m.begin();
         for(; It != m.end(); ++It)
         {
             Answer *= ((*It).second + 1);

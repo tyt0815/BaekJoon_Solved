@@ -50,12 +50,12 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    uint32_t m;
+    uint64_t m;
     MySet s;
 
     cin >> m;
 
-    for(uint32_t i = 0; i < m; ++i)
+    for(uint64_t i = 0; i < m; ++i)
     {
         string Cmd;
         uint16_t Value;
