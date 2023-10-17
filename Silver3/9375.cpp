@@ -4,8 +4,6 @@
 
 using namespace std;
 
-uint32_t Combination(uint32_t a, uint32_t b);
-
 int main()
 {
     ios::sync_with_stdio(false);
@@ -33,14 +31,11 @@ int main()
         map<string, uint32_t>::iterator It = m.begin();
         for(; It != m.end(); ++It)
         {
-            Answer = 
+            Answer *= ((*It).second + 1);
         }
+        Answer -= 1;
+        cout << Answer << '\n';
     }
 
     return 0;
-}
-
-uint32_t Combination(uint32_t a, uint32_t b)
-{
-
 }
