@@ -2,10 +2,10 @@
 
 using namespace std;
 
-void CheckColor(uint32_t Start, uint32_t Width);
+void CheckColor(uint32_t StartI, uint32_t StartJ, uint32_t Width);
 
 int n;
-uint32_t White = 0, Blue = 0;
+uint32_t ColorCnt[2] = {0, 0};
 short int** Mat;
 
 int main()
@@ -24,8 +24,9 @@ int main()
         }
     }
 
-    CheckColor(0, n);
-    
+    CheckColor(0, 0, n);
+
+    cout << ColorCnt[0] << '\n' << ColorCnt[1];
 
     for(int i = 0; i < n; ++i)
     {
@@ -35,7 +36,22 @@ int main()
     return 0;
 }
 
-void CheckColor(uint32_t Start, uint32_t Width)
+void CheckColor(uint32_t StartI, uint32_t StartJ, uint32_t Width)
 {
-
+    short int Color = Mat[StartI][StartJ];
+    for(uint32_t i = StartI; i < StartI + Width; ++i)
+    {
+        for(uint32_t j = StartJ; j < StartJ + Width; ++j)
+        {
+            if(Color != Mat[i][j])
+            {
+                CheckColor(StartI, StartJ, Width/2);
+                CheckColor(StartI + Width/2, StartJ, Width/2);
+                CheckColor(StartI, StartJ + Width/2, Width/2);
+                CheckColor(StartI + Width/2, StartJ + Width/2, Width/2);
+                return;
+            }
+        }
+    }
+    ++ColorCnt[Color];
 }
