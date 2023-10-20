@@ -25,7 +25,6 @@ public:
             {
                 Number[End - Start] = '\0';
                 mAry.push_back(atoi(Number));
-                memset(Number, 0, MAX_NUM);
                 Start = End + 1;
                 End = Start;
             }
