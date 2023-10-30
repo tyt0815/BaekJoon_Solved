@@ -5,8 +5,8 @@ using namespace std;
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+    // ios::sync_with_stdio(false);
+    // cin.tie(0);
 
     int n;
     vector<vector<int>> Mat;
@@ -22,26 +22,40 @@ int main()
         }
     }
     
-    for(int a = 0; a < n; ++a)
+    // for(int a = 0; a < n; ++a)
+    // {
+    //     bool NoChage = true;
+    //     for(int i = 0; i < n; ++i)
+    //     {
+    //         for(int j = 0; j < n; ++j)
+    //         {
+    //             for(int k = 0; k < n; ++k)
+    //             {
+    //                 if(Mat[i][j] == 1 && Mat[j][k] == 1 && Mat[i][k] != 1)
+    //                 {
+    //                     Mat[i][k] = 1;
+    //                     NoChage = false;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     if(NoChage)
+    //     {
+    //         break;
+    //     }
+    // }
+
+    for(int k = 0; k < n; ++k)
     {
-        bool NoChage = true;
         for(int i = 0; i < n; ++i)
         {
             for(int j = 0; j < n; ++j)
             {
-                for(int k = 0; k < n; ++k)
+                if(Mat[i][k] == 1 && Mat[k][j] == 1)
                 {
-                    if(Mat[i][j] == 1 && Mat[j][k] == 1 && Mat[i][k] != 1)
-                    {
-                        Mat[i][k] = 1;
-                        NoChage = false;
-                    }
+                    Mat[i][j] = 1;
                 }
             }
-        }
-        if(NoChage)
-        {
-            break;
         }
     }
     
