@@ -5,9 +5,8 @@
 # DS_Store 제외
 .DS_Store
 
-.vs*
+.vs
 test*
-*.exe
 *.exe
 *.ilk
 *.obj
