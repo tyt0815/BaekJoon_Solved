@@ -3,6 +3,7 @@
         "iosfwd": "cpp",
         "new": "cpp",
         "exception": "cpp",
-        "stdexcept": "cpp"
+        "stdexcept": "cpp",
+        "iostream": "cpp"
     }
 }
