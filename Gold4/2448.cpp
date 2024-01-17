@@ -2,80 +2,73 @@
 #include <vector>
 #include <cmath>
 
+
 using namespace std;
 
-void DrawStar11(int n, int h);
+void DrawStar11(int n, pair<int, int> Start, vector<vector<char>>& Stars);
 
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int n, k;
+    int n, k, m;
+    vector<vector<char>> Stars;
     cin >> n;
+    k = log2(n / 3);
+    m = 6 * pow(2, k) - 1;
+    Stars.resize(n);
+    for(int i = 0; i < n; ++i)
+    {
+        Stars[i].resize(m);
+        for(int j = 0; j < m; ++j)
+        {
+            Stars[i][j] = ' ';
+        }
+    }
+
+    DrawStar11(n, {Stars.size() - 1, 0}, Stars);
 
     for(int i = 0; i < n; ++i)
     {
-        DrawStar11(n, i);
-        for(int j = 0; j < n - i; ++j) 
-            cout << ' ';
-        if(i != n - 1)
+        for(int j = 0; j < m; ++j)
         {
-            cout << '\n';
+            cout << Stars[i][j];
         }
+        cout << '\n';
     }
 
     return 0;
 }
 
-void DrawStar11(int n, int h)
+void DrawStar11(int n, pair<int, int> Start, vector<vector<char>>& Stars)
 {
-    
-    if(n == 1)
+    if(n < 3)
     {
-        if(h == 0)
-        {
-            cout << "*";
-        }
-        else if(h == 1)
-        {
-            cout << "* *";
-        }
-        else if(h == 2)
-        {
-            cout << "*****";
-        }
         return;
     }
-    
-    int Blank;
-    if(h < 3)
+    int k = log2(n / 3);
+    int m = 6 * pow(2, k) - 1;
+    int i = Start.first, j = Start.second, Cnt = 0;
+    while(true)
     {
-        Blank = n - h - 1;
-        for(int i = 0; i < Blank; ++i)
+        if(Cnt == m)
         {
-            cout << ' ';
+            break;
         }
-        DrawStar11(1, h);
-        return;
+
+        if(Cnt % 6 != 5)
+        {
+            Stars[Start.first][j] = '*';
+        }
+        Stars[i][j] = '*';
+
+        ++Cnt;
+        i = Cnt > m / 2 ? i + 1 : i - 1;
+        ++j;
     }
 
-    int k = log2(h / 3);
-    int NextN = 3 * pow(2, k);
-    int NextH = h - 3 * pow(2, k);
-    Blank = n - NextN * 2;
-    for(int i = 0; i < Blank; ++i)
-    {
-        cout << ' ';
-    }
-    DrawStar11(NextN, NextH);
-    int pow2k = pow(2, k);
-    Blank = 6 * pow2k - 1;
-    Blank /= 2;
-    Blank -= (NextH - 1);
-    for(int i = 0; i < Blank; ++i)
-    {
-        cout << ' ';
-    }
-    DrawStar11(NextN, NextH);
+    DrawStar11(n / 2,Start , Stars);
+    DrawStar11(n / 2,{Start.first, Start.second + m / 2 + 1} , Stars);
+    DrawStar11(n / 2,{Start.first - n / 2, Start.second + m / 4 + 1} , Stars);
 }
