@@ -30,21 +30,16 @@ int main()
         Mat[a - 1][b - 1] = min(Mat[a - 1][b - 1], Cost);
     }
 
-    bool Loop = true;
-    while(Loop)
+    
+    for(int k = 0; k < n; ++k)
     {
-        Loop = false;
-        for(int k = 0; k < n; ++k)
+        for(int i = 0; i < n; ++i)
         {
-            for(int i = 0; i < n; ++i)
+            for(int j = 0; j < n; ++j)
             {
-                for(int j = 0; j < n; ++j)
+                if(Mat[i][j] > Mat[i][k] + Mat[k][j])
                 {
-                    if(Mat[i][j] > Mat[i][k] + Mat[k][j])
-                    {
-                        Loop = true;
-                        Mat[i][j] = Mat[i][k] + Mat[k][j];
-                    }
+                    Mat[i][j] = Mat[i][k] + Mat[k][j];
                 }
             }
         }
