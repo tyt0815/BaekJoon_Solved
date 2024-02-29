@@ -12,6 +12,9 @@
         "vector": "cpp",
         "cmath": "cpp",
         "regex": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "array": "cpp",
+        "unordered_map": "cpp",
+        "initializer_list": "cpp"
     }
 }
