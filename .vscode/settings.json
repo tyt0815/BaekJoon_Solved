@@ -17,6 +17,8 @@
         "unordered_map": "cpp",
         "initializer_list": "cpp",
         "bitset": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "stack": "cpp",
+        "limits": "cpp"
     }
 }
