@@ -19,6 +19,7 @@
         "bitset": "cpp",
         "utility": "cpp",
         "stack": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "unordered_set": "cpp"
     }
 }
