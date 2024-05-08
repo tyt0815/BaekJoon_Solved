@@ -11,39 +11,19 @@ int main()
 
     int N, K;
     cin >> N >> K;
-    K = min(K, N);
-    vector<vector<int>> v;
-    v.push_back(vector<int>(N));
-    for(auto &SensorPosition : v[0]) cin >> SensorPosition;
-    sort(v[0].begin(), v[0].end());
+    vector<int> SensorPositions(N);
+    for(auto &SensorPosition : SensorPositions) cin >> SensorPosition;
+    sort(SensorPositions.begin(), SensorPositions.end());
 
-    for(int i = 1; i < K; ++i)
+    vector<int> Ranges;
+    for(int i = 1; i < SensorPositions.size(); ++i)
     {
-        int MinSplit = INT32_MAX;
-        int TargetSensors = -1, TargetIndex = -1;
-        for(int j = 0; j < v.size(); ++j)
-        {
-            vector<int> &Sensors = v[j];
-            int Range = Sensors.back() - Sensors[0];
-            for(int k = 1; k < Sensors.size(); ++k)
-            {
-                int Temp = Sensors[k - 1] - Sensors[0] + Sensors.back() - Sensors[k] - Range;
-                if(MinSplit > Temp)
-                {
-                    MinSplit = Temp;
-                    TargetSensors = j;
-                    TargetIndex = k;
-                }
-            }
-        }
-        vector<int> TempVector(v[TargetSensors].size() - TargetIndex);
-        TempVector.assign(v[TargetSensors].begin() + TargetIndex, v[TargetSensors].end());
-        v.push_back(TempVector);
-        v[TargetSensors].resize(TargetIndex);
+        if(SensorPositions[i] == SensorPositions[i - 1]) continue;
+        Ranges.push_back(SensorPositions[i] - SensorPositions[i - 1]);
     }
-
+    sort(Ranges.begin(), Ranges.end());
     int Sum = 0;
-    for(const auto &Sensors : v) Sum += (Sensors.back() - Sensors[0]);
+    for(int i = 0; i < static_cast<int>(Ranges.size()) - K + 1; ++i) Sum += Ranges[i];
     cout << Sum;
 
     return 0;
