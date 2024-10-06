@@ -89,6 +89,8 @@ int NQueen(int i, vector<int> Queens, const int &n)
     {
         return 1;
     }
+    if(i == 7)
+        cout << '!';
 
     int Count = 0;
     
