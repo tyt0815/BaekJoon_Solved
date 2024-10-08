@@ -1,0 +1,116 @@
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void InitSequence(vector<int>& Sequence);
+
+// int main()
+// {
+//     ios::sync_with_stdio(false);
+//     cin.tie(nullptr);
+
+//     vector<int> Sequence1, Sequence2, CommonSubSequence;
+//     vector<int> Temp;
+//     InitSequence(Sequence1);
+//     InitSequence(Sequence2);
+
+//     for(int i = 0; i < Sequence1.size(); ++i)
+//     {
+//         for(int j = 0 ; j < Sequence2.size(); ++j)
+//         {
+//             if(Sequence1[i] == Sequence2[j])
+//             {
+                
+//                 int k = 0;
+//                 for(;k < Temp.size(); ++k)
+//                 {
+//                     if(Sequence2[j] > Sequence2[Temp[k]])
+//                     {
+//                         break;
+//                     }
+//                     else if(j <= Temp[k])
+//                     {
+//                         goto IFEND;
+//                     }
+//                 }
+//                 Temp.resize(k + 1);
+//                 Temp[k] = j;
+//                 break;
+//             }
+//             IFEND:;
+//         }
+//     }
+
+//     cout << Temp.size() << '\n';
+//     for(int i = 0; i < Temp.size(); ++i)
+//     {
+//         cout << Sequence2[Temp[i]] << ' ';
+//     }
+
+//     return 0;
+// }
+
+// void InitSequence(vector<int>& Sequence)
+// {
+//     int N;
+//     cin >> N;
+//     Sequence.resize(N);
+//     for(auto& Number : Sequence)
+//     {
+//         cin >> Number;
+//     }
+// }
+
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void InitSequence(vector<int>& Sequence);
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    vector<int> A, B;
+    InitSequence(A);
+    InitSequence(B);
+    
+    vector<bool> ACheck(A.size(), false), BCheck(B.size(), false);
+    int Count = 0, AOffset = 0, BOffset = 0;
+    for(int i = 100; i > 0 && AOffset < A.size() && BOffset < B.size();)
+    {
+        int a, b;
+        for(a = AOffset; a < A.size(); ++a) if(A[a] == i && !ACheck[a]) break;
+        for(b = BOffset; b < B.size(); ++b) if(B[b] == i && !BCheck[b]) break;
+
+        if(a != A.size() && b != B.size())
+        {
+            ACheck[a] = true;
+            BCheck[b] = true;
+            AOffset = a + 1;
+            BOffset = b + 1;
+            ++Count;
+        }
+        else --i;
+    }
+
+    cout << Count << '\n';
+    for(int i = 0 ; i < A.size(); ++i)
+    {
+        if(ACheck[i]) cout << A[i] << ' ';
+    }
+
+    return 0;
+}
+
+void InitSequence(vector<int>& Sequence)
+{
+    int N;
+    cin >> N;
+    Sequence.resize(N);
+    for(auto& Number : Sequence) cin >> Number;
+}
