@@ -1,5 +1,59 @@
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// int main()
+// {
+//     ios::sync_with_stdio(false);
+//     cin.tie(nullptr);
+
+//     string Str;
+//     string Bomb;
+//     cin >> Str >> Bomb;
+//     string Result;
+//     Result.resize(Str.length() + 1);
+
+//     for(int i = 0, j = i; i < Str.length(); ++i, ++j)
+//     {
+//         Result[j] = Str[i];
+
+//         if(j >= Bomb.length() - 1)
+//         {
+//             bool IsBoom = true;
+//             for(int k = 0; k < Bomb.length(); ++k)
+//             {
+//                 if(Bomb[k] != Result[j - Bomb.length() + k + 1])
+//                 {
+//                     IsBoom = false;
+//                     break;
+//                 }
+//             }
+//             if(IsBoom)
+//             {
+//                 j = j - Bomb.length();
+//             }
+//         }
+//         Result[j + 1] = '\0';
+//     }
+
+//     if(Result[0] == '\0')
+//     {
+//         cout << "FRULA";
+//     }
+//     else
+//     {
+//         for(int i = 0; Result[i] != '\0'; ++i)
+//         {
+//             cout << Result[i];
+//         }
+//     }
+
+//     return 0;
+// }
+
 #include <iostream>
-#include <vector>
+#include <stack>
 
 using namespace std;
 
@@ -8,46 +62,49 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    string Str;
-    string Bomb;
-    cin >> Str >> Bomb;
-    string Result;
-    Result.resize(Str.length() + 1);
-
-    for(int i = 0, j = i; i < Str.length(); ++i, ++j)
+    string A, Bomb;
+    cin >> A >> Bomb;
+    stack<char> StringStack;
+    stack<int> OffsetStack;
+    int BombIndex = 0;
+    for(int i = 0; i < A.size(); ++i)
     {
-        Result[j] = Str[i];
-
-        if(j >= Bomb.length() - 1)
+        StringStack.push(A[i]);
+        if(A[i] == Bomb[BombIndex]) ++BombIndex;
+        else
         {
-            bool IsBoom = true;
-            for(int k = 0; k < Bomb.length(); ++k)
+            OffsetStack.push(BombIndex);
+            if(A[i] == Bomb[0])
             {
-                if(Bomb[k] != Result[j - Bomb.length() + k + 1])
-                {
-                    IsBoom = false;
-                    break;
-                }
+                BombIndex = 1;
             }
-            if(IsBoom)
+            else
             {
-                j = j - Bomb.length();
+                OffsetStack.push(0);
+                BombIndex = 0;
             }
         }
-        Result[j + 1] = '\0';
+        if(BombIndex == Bomb.length())
+        {
+            for(int j = 0; j < Bomb.length(); ++j) StringStack.pop();
+            if(OffsetStack.empty()) BombIndex = 0;
+            else
+            {
+                BombIndex = OffsetStack.top();
+                OffsetStack.pop();
+            }
+        }
     }
-
-    if(Result[0] == '\0')
-    {
-        cout << "FRULA";
-    }
+    if(StringStack.empty()) cout << "FRULA";
     else
     {
-        for(int i = 0; Result[i] != '\0'; ++i)
+        string B(StringStack.size(), ' ');
+        for(int i = 0; i < B.length(); ++i)
         {
-            cout << Result[i];
+            *(B.end() - 1 - i) = StringStack.top();
+            StringStack.pop();
         }
+        cout << B;
     }
-
     return 0;
 }
