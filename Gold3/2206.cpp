@@ -18,7 +18,7 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    
     int n, m;
     vector<vector<int>> Mat;
     cin >> n >> m;
@@ -36,7 +36,7 @@ int main()
 
     if(n == 1 && m == 1)
     {
-        cout << 1;
+        std::cout << 1;
         return 0;
     }
 
@@ -86,7 +86,7 @@ bool SearchWay(int i, int j, int Depth, bool CanBreak, queue<QData> &q, vector<v
     {
         return true;
     }
-
+    queue<QData>::back();
     // 0 1 2
     if(CanBreak)
     {
