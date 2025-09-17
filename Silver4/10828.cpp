@@ -1,124 +1,222 @@
+// #include <iostream>
+// #include <string.h>
+
+// using namespace std;
+
+// class MyStack
+// {
+// public:
+//     MyStack();
+//     ~MyStack();
+    
+
+//     void Push(int value);
+//     int Pop();
+//     bool IsEmpty();
+//     int Top();
+//     void Resize(int NewMax);
+
+// private:
+//     int Size;
+//     int Max;
+//     int* Stack;
+
+// public:
+//     int GetSize();
+// };
+
+// int main()
+// {
+//     int CommandNumb;
+//     string Command;
+//     int value;
+//     MyStack Stack = MyStack();
+
+//     cin >> CommandNumb;
+
+//     for(int i = 0; i < CommandNumb; ++i)
+//     {
+//         cin >> Command;
+//         if (Command.compare("push") == 0)
+//         {
+//             cin >> value;
+//             Stack.Push(value);
+//         }
+//         else if(Command.compare("pop") == 0)
+//         {
+//             cout << Stack.Pop() << endl;
+//         }
+//         else if(Command.compare("size") == 0)
+//         {
+//             cout << Stack.GetSize() << endl;
+//         }
+//         else if(Command.compare("empty") == 0)
+//         {
+//             cout << Stack.IsEmpty() << endl;
+//         }
+//         else if(Command.compare("top") == 0)
+//         {
+//             cout << Stack.Top() << endl;
+//         }
+//         else
+//         {
+//             cout << "Error: Invalid Command";
+//             return 1;
+//         }
+//     }
+
+//     return 0;
+// }
+
+// MyStack::MyStack() :
+//     Stack(new int[2]),
+//     Max(2),
+//     Size(0)
+// {
+// }
+
+// MyStack::~MyStack()
+// {
+//     delete[] Stack;
+// }
+
+// void MyStack::Push(int value)
+// {
+//     if(Size == Max)
+//     {
+//         Resize(Max * 2);
+//     }
+
+//     Stack[Size++] = value;
+// }
+
+// int MyStack::Pop()
+// {
+//     return IsEmpty() ? -1 : Stack[--Size];
+// }
+
+// bool MyStack::IsEmpty()
+// {
+//     return Size == 0 ? true : false;
+// }
+
+// int MyStack::Top()
+// {
+//     return IsEmpty() ? -1 : Stack[Size-1];
+// }
+
+// int MyStack::GetSize()
+// {
+//     return Size;
+// }
+
+// void MyStack::Resize(int NewMax)
+// {
+//     int* Temp = Stack;
+//     Stack = new int[NewMax];
+//     for(int i = 0; i < Size; ++i)
+//         {
+//             Stack[i] = Temp[i];
+//         }
+
+//     delete[] Temp;
+//     Max = NewMax;
+// }
+
+
 #include <iostream>
-#include <string.h>
+#include <vector>
 
 using namespace std;
 
-class MyStack
+class IntStack
 {
 public:
-    MyStack();
-    ~MyStack();
-    
+    void Push(int X);
 
-    void Push(int value);
     int Pop();
-    bool IsEmpty();
+
+    int Size();
+
+    bool Empty();
+
     int Top();
-    void Resize(int NewMax);
 
 private:
-    int Size;
-    int Max;
-    int* Stack;
-
-public:
-    int GetSize();
+    vector<int> Container;
+    size_t StackSize = 0;
 };
 
 int main()
 {
-    int CommandNumb;
-    string Command;
-    int value;
-    MyStack Stack = MyStack();
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    cin >> CommandNumb;
-
-    for(int i = 0; i < CommandNumb; ++i)
+    int N;
+    cin >> N;
+    IntStack Stack;
+    while(N--)
     {
-        cin >> Command;
-        if (Command.compare("push") == 0)
+        string Cmd;
+        cin >> Cmd;
+        if(Cmd == "push")
         {
-            cin >> value;
-            Stack.Push(value);
+            int x;
+            cin >> x;
+            Stack.Push(x);
         }
-        else if(Command.compare("pop") == 0)
+        else if(Cmd == "pop")
         {
-            cout << Stack.Pop() << endl;
+            cout << Stack.Pop() << "\n";
         }
-        else if(Command.compare("size") == 0)
+        else if(Cmd == "size")
         {
-            cout << Stack.GetSize() << endl;
+            cout << Stack.Size() << "\n";
         }
-        else if(Command.compare("empty") == 0)
+        else if(Cmd == "empty")
         {
-            cout << Stack.IsEmpty() << endl;
+            cout << Stack.Empty() << "\n";
         }
-        else if(Command.compare("top") == 0)
+        else if(Cmd == "top")
         {
-            cout << Stack.Top() << endl;
+            cout << Stack.Top() << "\n";
         }
         else
         {
-            cout << "Error: Invalid Command";
-            return 1;
+            throw;
         }
     }
-
-    return 0;
 }
 
-MyStack::MyStack() :
-    Stack(new int[2]),
-    Max(2),
-    Size(0)
+void IntStack::Push(int X)
 {
-}
-
-MyStack::~MyStack()
-{
-    delete[] Stack;
-}
-
-void MyStack::Push(int value)
-{
-    if(Size == Max)
+    if(StackSize >= Container.size())
     {
-        Resize(Max * 2);
+        Container.push_back(X);
     }
-
-    Stack[Size++] = value;
+    else
+    {
+        Container[StackSize] = X;
+    }
+    ++StackSize;
 }
 
-int MyStack::Pop()
+int IntStack::Pop()
 {
-    return IsEmpty() ? -1 : Stack[--Size];
+    return Empty() ? -1 : Container[StackSize-- - 1];
 }
 
-bool MyStack::IsEmpty()
+int IntStack::Size()
 {
-    return Size == 0 ? true : false;
+    return StackSize;
 }
 
-int MyStack::Top()
+bool IntStack::Empty()
 {
-    return IsEmpty() ? -1 : Stack[Size-1];
+    return StackSize <= 0;
 }
 
-int MyStack::GetSize()
+int IntStack::Top()
 {
-    return Size;
-}
-
-void MyStack::Resize(int NewMax)
-{
-    int* Temp = Stack;
-    Stack = new int[NewMax];
-    for(int i = 0; i < Size; ++i)
-        {
-            Stack[i] = Temp[i];
-        }
-
-    delete[] Temp;
-    Max = NewMax;
+    return Empty() ? -1 : Container[StackSize - 1];
 }
