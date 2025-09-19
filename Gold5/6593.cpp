@@ -4,14 +4,14 @@
 
 using namespace std;
 
-struct FVector
+struct FVectorInt2D
 {
     int X;
     int Y;
     int Z;
 };
 
-FVector SixDirection[] = { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 }, { -1, 0, 0 }, { 0, -1, 0 }, { 0, 0, -1 } };
+FVectorInt2D SixDirection[] = { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 }, { -1, 0, 0 }, { 0, -1, 0 }, { 0, 0, -1 } };
 
 int main()
 {
@@ -20,7 +20,7 @@ int main()
 
     while(true)
     {
-        FVector BuildingSize, StartPosition;
+        FVectorInt2D BuildingSize, StartPosition;
         cin >> BuildingSize.X >> BuildingSize.Y >> BuildingSize.Z;
         if(BuildingSize.X == 0 && BuildingSize.Y == 0 && BuildingSize.Z == 0) break;
         vector<vector<vector<char>>> Building(BuildingSize.X, vector<vector<char>>(BuildingSize.Y, vector<char>(BuildingSize.Z, ' ')));
@@ -36,7 +36,7 @@ int main()
             }
         }
 
-        queue<pair<FVector, int>> q;
+        queue<pair<FVectorInt2D, int>> q;
         q.push({StartPosition, 0});
         vector<vector<vector<bool>>> bVisited(BuildingSize.X, vector<vector<bool>>(BuildingSize.Y, vector<bool>(BuildingSize.Z, false)));
         bVisited[StartPosition.X][StartPosition.Y][StartPosition.Z] = true;
@@ -44,12 +44,12 @@ int main()
         int ElapsedTime = 0;
         while(!q.empty())
         {
-            FVector Pos = q.front().first;
+            FVectorInt2D Pos = q.front().first;
             int Time = q.front().second;
             q.pop();
             for(int i = 0; i < 6; ++i)
             {
-                FVector Next = {Pos.X + SixDirection[i].X, Pos.Y + SixDirection[i].Y, Pos.Z + SixDirection[i].Z};
+                FVectorInt2D Next = {Pos.X + SixDirection[i].X, Pos.Y + SixDirection[i].Y, Pos.Z + SixDirection[i].Z};
                 if(Next.X < 0 || Next.X >= bVisited.size() ||
                  Next.Y < 0 || Next.Y >= bVisited[Next.X].size() ||
                  Next.Z < 0 || Next.Z >= bVisited[Next.X][Next.Y].size() ||
